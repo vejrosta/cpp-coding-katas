@@ -8,6 +8,15 @@ void fillList(LinkedList &list, std::vector<int> const &values) {
   }
 }
 
+void checkList(LinkedList &list, std::vector<int> const &values) {
+  Elem *current{list.getHead()};
+  for (auto const value : values) {
+    EXPECT_EQ(current->data, value);
+    current = current->next;
+  }
+  EXPECT_EQ(current, nullptr);
+}
+
 // Test case for an empty vector
 TEST(LinkedListTest, EmptyList) {
   LinkedList list{};
@@ -35,12 +44,7 @@ TEST(LinkedListTest, MultipleElementsList) {
 
   EXPECT_FALSE(list.empty());
 
-  Elem *current{list.getHead()};
-  EXPECT_EQ(current->data, ELEM_0);
-  current = current->next;
-  EXPECT_EQ(current->data, ELEM_1);
-  current = current->next;
-  EXPECT_EQ(current->data, ELEM_2);
+  checkList(list, {ELEM_0, ELEM_1, ELEM_2});
 }
 
 // Test case for removing an element from an empty list
@@ -85,11 +89,7 @@ TEST(LinkedListTest, RemoveElementFromMultipleElementsList) {
   list.remove(ELEM_1);
 
   EXPECT_FALSE(list.empty());
-
-  Elem *current{list.getHead()};
-  EXPECT_EQ(current->data, ELEM_0);
-  current = current->next;
-  EXPECT_EQ(current->data, ELEM_2);
+  checkList(list, {ELEM_0, ELEM_2});
 }
 
 // Test case for removing multiple elements from a list with multiple elements
@@ -104,11 +104,7 @@ TEST(LinkedListTest, RemoveMultipleElementsFromMultipleElementsList) {
   list.remove(ELEM_2);
 
   EXPECT_FALSE(list.empty());
-
-  Elem *current{list.getHead()};
-  EXPECT_EQ(current->data, ELEM_1);
-  current = current->next;
-  EXPECT_EQ(current, nullptr);
+  checkList(list, {ELEM_1});
 }
 
 int main(int argc, char **argv) {
