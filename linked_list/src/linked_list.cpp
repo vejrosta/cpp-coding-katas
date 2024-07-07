@@ -1,5 +1,7 @@
 #include "linked_list.h"
 
+Elem *LinkedList::getHead() const { return head; }
+
 bool LinkedList::empty() const { return head == nullptr; }
 
 void LinkedList::push_back(int value) {

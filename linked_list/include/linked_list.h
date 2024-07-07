@@ -8,6 +8,8 @@ struct Elem {
 
 class LinkedList {
 public:
+  Elem *getHead() const;
+
   bool empty() const;
   void push_back(int value);
 
