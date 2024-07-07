@@ -3,6 +3,6 @@
 
 #include <vector>
 
-void quicksort(std::vector<int>& arr);
+void quicksort(std::vector<int> &arr);
 
 #endif // QUICKSORT_H
