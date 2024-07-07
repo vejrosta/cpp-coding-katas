@@ -6,10 +6,10 @@
 
 
 int partition(std::vector<int>& arr, int low, int high) {
-	int const pivot{arr[high]};
-	int i{(low - 1)};
+	auto const pivot{arr[high]};
+	auto i{(low - 1)};
 
-	for (int j{low}; j < high; ++j) {
+	for (auto j{low}; j < high; ++j) {
 		if (arr[j] < pivot) {
 			++i;
 			std::swap(arr[i], arr[j]);
@@ -21,7 +21,7 @@ int partition(std::vector<int>& arr, int low, int high) {
 
 void quicksort(std::vector<int>& arr, int low, int high) {
 	if (low < high) {
-		int const pivot{partition(arr, low, high)};
+		auto const pivot{partition(arr, low, high)};
 
 		quicksort(arr, low, pivot - 1);
 		quicksort(arr, pivot + 1, high);
