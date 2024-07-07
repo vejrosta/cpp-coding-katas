@@ -1,6 +1,3 @@
-#ifndef QUICKSORT_H
-#define QUICKSORT_H
-
 #include <algorithm>
 #include <vector>
 
@@ -28,12 +25,10 @@ void quicksort(std::vector<int>& arr, int low, int high) {
 		quicksort(arr, pivot + 1, high);
 	}
 }
-}
+} // namespace
 
 void quicksort(std::vector<int>& arr) {
     if (!arr.empty()) {
         quicksort(arr, 0, arr.size() - 1);
     }
 }
-
-#endif // QUICKSORT_H
