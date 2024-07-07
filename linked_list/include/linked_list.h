@@ -12,6 +12,7 @@ public:
 
   bool empty() const;
   void push_back(int value);
+  void remove(int value);
 
 private:
   Elem *head{nullptr};
