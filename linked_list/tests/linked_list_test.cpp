@@ -2,6 +2,12 @@
 #include <gtest/gtest.h>
 #include <vector>
 
+void fillList(LinkedList &list, std::vector<int> const &values) {
+  for (auto const value : values) {
+    list.push_back(value);
+  }
+}
+
 // Test case for an empty vector
 TEST(LinkedListTest, EmptyList) {
   LinkedList list{};
@@ -25,9 +31,7 @@ TEST(LinkedListTest, MultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
 
   EXPECT_FALSE(list.empty());
 
@@ -77,9 +81,7 @@ TEST(LinkedListTest, RemoveElementFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.remove(ELEM_1);
 
   EXPECT_FALSE(list.empty());
@@ -97,9 +99,7 @@ TEST(LinkedListTest, RemoveMultipleElementsFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.remove(ELEM_0);
   list.remove(ELEM_2);
 
