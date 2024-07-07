@@ -5,7 +5,8 @@
 #include <vector>
 
 
-int partition(std::vector<int>& arr, int low, int high) {
+namespace {
+	int partition(std::vector<int>& arr, int low, int high) {
 	auto const pivot{arr[high]};
 	auto i{(low - 1)};
 
@@ -26,6 +27,7 @@ void quicksort(std::vector<int>& arr, int low, int high) {
 		quicksort(arr, low, pivot - 1);
 		quicksort(arr, pivot + 1, high);
 	}
+}
 }
 
 void quicksort(std::vector<int>& arr) {
