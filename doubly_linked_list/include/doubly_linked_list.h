@@ -17,6 +17,7 @@ public:
   bool empty() const;
   void push_back(int value);
   void push_front(int value);
+  void remove(int value);
   void clear();
 
 private:

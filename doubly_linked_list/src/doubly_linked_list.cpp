@@ -29,6 +29,40 @@ void DoublyLinkedList::push_front(int value) {
   }
 }
 
+void DoublyLinkedList::remove(int value) {
+  if (head == nullptr) {
+    return;
+  }
+
+  if (head->data == value) {
+    auto tmp{head};
+    head = head->next;
+    if (head != nullptr) {
+      head->prev = nullptr;
+    } else {
+      tail = nullptr;
+    }
+    delete tmp;
+    return;
+  }
+
+  auto current{head};
+  while (current->next != nullptr) {
+    if (current->next->data == value) {
+      auto tmp{current->next};
+      current->next = current->next->next;
+      if (current->next != nullptr) {
+        current->next->prev = current;
+      } else {
+        tail = current;
+      }
+      delete tmp;
+      return;
+    }
+    current = current->next;
+  }
+}
+
 void DoublyLinkedList::clear() {
   while (head != nullptr) {
     auto tmp{head};
