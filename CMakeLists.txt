@@ -9,3 +9,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Include the subprojects
 add_subdirectory(quicksort)
 add_subdirectory(linked_list)
+add_subdirectory(doubly_linked_list)
