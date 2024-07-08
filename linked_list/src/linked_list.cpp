@@ -77,3 +77,24 @@ void LinkedList::clear() {
     delete tmp;
   }
 }
+
+void LinkedList::removeDuplicates() {
+  if (head == nullptr) {
+    return;
+  }
+
+  auto current{head};
+  while (current != nullptr) {
+    auto runner{current};
+    while (runner->next != nullptr) {
+      if (runner->next->data == current->data) {
+        auto tmp{runner->next};
+        runner->next = runner->next->next;
+        delete tmp;
+      } else {
+        runner = runner->next;
+      }
+    }
+    current = current->next;
+  }
+}

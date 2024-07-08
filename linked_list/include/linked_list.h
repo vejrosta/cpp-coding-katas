@@ -17,6 +17,7 @@ public:
   void remove(int value);
   void clear();
   void removeByIndex(int index);
+  void removeDuplicates();
 
 private:
   Node *head{nullptr};

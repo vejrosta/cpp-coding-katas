@@ -200,6 +200,54 @@ TEST(LinkedListTest, RemoveElementByIndexOutOfBounds) {
   checkList(list, {ELEM_0});
 }
 
+// Test case for removing duplicates from an empty list
+TEST(LinkedListTest, RemoveDuplicatesEmptyList) {
+  LinkedList list{};
+
+  list.removeDuplicates();
+
+  EXPECT_TRUE(list.empty());
+}
+
+// Test case for removing duplicates from a list with one element
+TEST(LinkedListTest, RemoveDuplicatesSingleElementList) {
+  LinkedList list{};
+
+  list.push_back(5);
+  list.removeDuplicates();
+
+  EXPECT_FALSE(list.empty());
+}
+
+// Test case for removing duplicates from a list with multiple elements
+TEST(LinkedListTest, RemoveDuplicatesMultipleElementsList) {
+  LinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{2};
+  int constexpr ELEM_2{1};
+
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
+  list.removeDuplicates();
+
+  EXPECT_FALSE(list.empty());
+  checkList(list, {ELEM_0, ELEM_1});
+}
+
+// Test case for removing multiple duplicates from a list with multiple elements
+TEST(LinkedListTest, RemoveMultipleDuplicatesFromMultipleElementsList) {
+  LinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{2};
+  int constexpr ELEM_2{1};
+  int constexpr ELEM_3{2};
+
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2, ELEM_3});
+  list.removeDuplicates();
+
+  EXPECT_FALSE(list.empty());
+  checkList(list, {ELEM_0, ELEM_1});
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
