@@ -15,6 +15,7 @@ public:
   Node *getTail() const;
 
   bool empty() const;
+  void clear();
 
 private:
   Node *head{nullptr};
