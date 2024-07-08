@@ -1,30 +1,15 @@
-This project serves just for my coding katas. Feel free to look at it. Nothing to really see, though.# Interview Preps - think-cell
-
-This repository contains interview preparation materials for think-cell.
 
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction
 
-This repository is designed to help you prepare for interviews at think-cell. It includes resources, practice problems, and tips to enhance your interview performance.
+This project serves just for my coding katas. Feel free to look at it. Nothing to really see, though.
 
-## Installation
-
-To get started with the interview preparation materials, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/jiri/projects/interview_preps/think-cell.git`
-2. Navigate to the project directory: `cd think-cell`
-3. Install the necessary dependencies: `npm install`
-
-## Usage
-
-Once you have installed the dependencies, you can start using the interview preparation materials. Refer to the documentation and examples provided in the repository to get familiar with the think-cell interview process.
+This repository contains my craftmanship preparation materials..
 
 ## Contributing
 
