@@ -139,6 +139,67 @@ TEST(LinkedListTest, ClearMultipleElementsList) {
   EXPECT_TRUE(list.empty());
 }
 
+// Test case for removing an element by index from an empty list
+TEST(LinkedListTest, RemoveElementByIndexFromEmptyList) {
+  LinkedList list{};
+
+  list.removeByIndex(0);
+
+  EXPECT_TRUE(list.empty());
+}
+
+// Test case for removing an element by index from a list with one element
+TEST(LinkedListTest, RemoveElementByIndexFromSingleElementList) {
+  LinkedList list{};
+
+  list.push_back(5);
+  list.removeByIndex(0);
+
+  EXPECT_TRUE(list.empty());
+}
+
+// Test case for removing an element by index from a list with multiple elements
+TEST(LinkedListTest, RemoveElementByIndexFromMultipleElementsList) {
+  LinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{2};
+  int constexpr ELEM_2{3};
+
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
+  list.removeByIndex(1);
+
+  EXPECT_FALSE(list.empty());
+  checkList(list, {ELEM_0, ELEM_2});
+}
+
+// Test case for removing multiple elements by index from a list with multiple
+// elements
+TEST(LinkedListTest, RemoveMultipleElementsByIndexFromMultipleElementsList) {
+  LinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{2};
+  int constexpr ELEM_2{3};
+
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
+  list.removeByIndex(0);
+  list.removeByIndex(1);
+
+  EXPECT_FALSE(list.empty());
+  checkList(list, {ELEM_1});
+}
+
+// Test case for removing an element by index with an index out of bounds
+TEST(LinkedListTest, RemoveElementByIndexOutOfBounds) {
+  LinkedList list{};
+  int constexpr ELEM_0{1};
+
+  fillList(list, {ELEM_0});
+  list.removeByIndex(1);
+
+  EXPECT_FALSE(list.empty());
+  checkList(list, {ELEM_0});
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -1,5 +1,7 @@
 #include "linked_list.h"
 
+LinkedList::~LinkedList() { clear(); }
+
 Node *LinkedList::getHead() const { return head; }
 
 bool LinkedList::empty() const { return head == nullptr; }
@@ -38,6 +40,34 @@ void LinkedList::remove(int value) {
     }
     current = current->next;
   }
+}
+
+void LinkedList::removeByIndex(int index) {
+  if (head == nullptr) {
+    return;
+  }
+
+  if (index == 0) {
+    auto tmp{head};
+    head = head->next;
+    delete tmp;
+    return;
+  }
+
+  auto current{head};
+  for (int i{}; i < index - 1; ++i) {
+    if (current->next == nullptr) {
+      return;
+    }
+    current = current->next;
+  }
+
+  auto tmp{current->next};
+  if (tmp == nullptr) {
+    return;
+  }
+  current->next = tmp->next;
+  delete tmp;
 }
 
 void LinkedList::clear() {

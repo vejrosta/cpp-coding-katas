@@ -8,12 +8,15 @@ struct Node {
 
 class LinkedList {
 public:
+  ~LinkedList();
+
   Node *getHead() const;
 
   bool empty() const;
   void push_back(int value);
   void remove(int value);
   void clear();
+  void removeByIndex(int index);
 
 private:
   Node *head{nullptr};
