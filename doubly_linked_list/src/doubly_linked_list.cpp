@@ -1,4 +1,5 @@
 #include "doubly_linked_list.h"
+#include <unordered_map>
 
 DoublyLinkedList::~DoublyLinkedList() { clear(); }
 
@@ -102,20 +103,26 @@ void DoublyLinkedList::removeByIndex(int index) {
 }
 
 void DoublyLinkedList::removeDuplicates() {
-  if (head == nullptr) {
-    return;
-  }
+  std::unordered_map<int, int> elementCounter;
 
   auto current{head};
-  while (current->next != nullptr) {
-    if (current->data == current->next->data) {
-      auto tmp{current->next};
-      current->next = current->next->next;
-      if (current->next != nullptr) {
-        current->next->prev = current;
+  while (current != nullptr) {
+    ++elementCounter[current->data];
+    current = current->next;
+  }
+
+  current = head;
+  while (current != nullptr) {
+    if (--elementCounter[current->data]) {
+      if (current->prev != nullptr) {
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
       } else {
-        tail = current;
+        head = current->next;
+        head->prev = nullptr;
       }
+      Node *tmp{current};
+      current = current->next;
       delete tmp;
     } else {
       current = current->next;
