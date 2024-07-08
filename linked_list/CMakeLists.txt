@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(LinkedList)
+
+# Create a library target for the linked list algorithm
+add_library(linked_list_lib src/linked_list.cpp)
+
+# Specify include directories for this target
+target_include_directories(linked_list_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Include the testing subdirectory
+enable_testing()
+add_subdirectory(tests)
