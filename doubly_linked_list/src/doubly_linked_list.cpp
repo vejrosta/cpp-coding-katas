@@ -63,6 +63,44 @@ void DoublyLinkedList::remove(int value) {
   }
 }
 
+void DoublyLinkedList::removeByIndex(int index) {
+  if (head == nullptr) {
+    return;
+  }
+
+  if (index == 0) {
+    auto tmp{head};
+    head = head->next;
+    if (head != nullptr) {
+      head->prev = nullptr;
+    } else {
+      tail = nullptr;
+    }
+    delete tmp;
+    return;
+  }
+
+  auto current{head};
+  for (int i{}; i < index - 1; ++i) {
+    if (current->next == nullptr) {
+      return;
+    }
+    current = current->next;
+  }
+
+  auto tmp{current->next};
+  if (tmp == nullptr) {
+    return;
+  }
+  current->next = current->next->next;
+  if (current->next != nullptr) {
+    current->next->prev = current;
+  } else {
+    tail = current;
+  }
+  delete tmp;
+}
+
 void DoublyLinkedList::clear() {
   while (head != nullptr) {
     auto tmp{head};
