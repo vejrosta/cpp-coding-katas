@@ -1,5 +1,12 @@
 #include "doubly_linked_list.h"
 #include <gtest/gtest.h>
+#include <vector>
+
+void fillList(DoublyLinkedList &list, std::vector<int> const &values) {
+  for (auto const value : values) {
+    list.push_back(value);
+  }
+}
 
 // Test case for an empty list
 TEST(DoublyLinkedListTest, EmptyList) {
@@ -24,9 +31,7 @@ TEST(DoublyLinkedListTest, MultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
 
   EXPECT_FALSE(list.empty());
 
@@ -129,9 +134,7 @@ TEST(DoublyLinkedListTest, RemoveElementFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.remove(5);
 
   EXPECT_FALSE(list.empty());
@@ -149,9 +152,7 @@ TEST(DoublyLinkedListTest, RemoveElementFromMultipleElementsListToRemove) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.remove(ELEM_1);
 
   EXPECT_FALSE(list.empty());
@@ -168,9 +169,7 @@ TEST(DoublyLinkedListTest, RemoveFirstElementFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.remove(ELEM_0);
 
   EXPECT_FALSE(list.empty());
@@ -187,9 +186,7 @@ TEST(DoublyLinkedListTest, RemoveLastElementFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.remove(ELEM_2);
 
   EXPECT_FALSE(list.empty());
@@ -224,9 +221,7 @@ TEST(DoublyLinkedListTest, RemoveElementByIndexFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.removeByIndex(1);
 
   EXPECT_FALSE(list.empty());
@@ -244,9 +239,7 @@ TEST(DoublyLinkedListTest,
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.removeByIndex(0);
   list.removeByIndex(1);
 
@@ -264,9 +257,7 @@ TEST(DoublyLinkedListTest, RemoveFirstElementByIndexFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.removeByIndex(0);
 
   EXPECT_FALSE(list.empty());
@@ -283,9 +274,7 @@ TEST(DoublyLinkedListTest, RemoveLastElementByIndexFromMultipleElementsList) {
   int constexpr ELEM_1{2};
   int constexpr ELEM_2{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
   list.removeByIndex(2);
 
   EXPECT_FALSE(list.empty());
@@ -304,10 +293,7 @@ TEST(DoublyLinkedListTest,
   int constexpr ELEM_2{3};
   int constexpr ELEM_3{4};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
-  list.push_back(ELEM_3);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2, ELEM_3});
   list.removeByIndex(1);
 
   EXPECT_FALSE(list.empty());
@@ -327,10 +313,7 @@ TEST(DoublyLinkedListTest,
   int constexpr ELEM_2{3};
   int constexpr ELEM_3{4};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
-  list.push_back(ELEM_3);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2, ELEM_3});
   list.removeByIndex(4);
 
   EXPECT_FALSE(list.empty());
@@ -351,10 +334,7 @@ TEST(DoublyLinkedListTest,
   int constexpr ELEM_2{3};
   int constexpr ELEM_3{4};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
-  list.push_back(ELEM_3);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2, ELEM_3});
   list.removeByIndex(5);
 
   EXPECT_FALSE(list.empty());
@@ -373,10 +353,7 @@ TEST(DoublyLinkedListTest, RemoveDuplicateElementFromMultipleElementsList) {
   int constexpr ELEM_2{2};
   int constexpr ELEM_3{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
-  list.push_back(ELEM_3);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2, ELEM_3});
   list.removeDuplicates();
 
   EXPECT_FALSE(list.empty());
@@ -397,11 +374,7 @@ TEST(DoublyLinkedListTest,
   int constexpr ELEM_3{2};
   int constexpr ELEM_4{3};
 
-  list.push_back(ELEM_0);
-  list.push_back(ELEM_1);
-  list.push_back(ELEM_2);
-  list.push_back(ELEM_3);
-  list.push_back(ELEM_4);
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2, ELEM_3, ELEM_4});
   list.removeDuplicates();
 
   EXPECT_FALSE(list.empty());
