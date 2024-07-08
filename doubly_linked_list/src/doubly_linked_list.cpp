@@ -101,6 +101,28 @@ void DoublyLinkedList::removeByIndex(int index) {
   delete tmp;
 }
 
+void DoublyLinkedList::removeDuplicates() {
+  if (head == nullptr) {
+    return;
+  }
+
+  auto current{head};
+  while (current->next != nullptr) {
+    if (current->data == current->next->data) {
+      auto tmp{current->next};
+      current->next = current->next->next;
+      if (current->next != nullptr) {
+        current->next->prev = current;
+      } else {
+        tail = current;
+      }
+      delete tmp;
+    } else {
+      current = current->next;
+    }
+  }
+}
+
 void DoublyLinkedList::clear() {
   while (head != nullptr) {
     auto tmp{head};

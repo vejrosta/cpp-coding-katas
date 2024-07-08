@@ -365,6 +365,52 @@ TEST(DoublyLinkedListTest,
   EXPECT_EQ(list.getTail()->data, ELEM_3);
 }
 
+// Test case for removing a duplicate element from a list with multiple elements
+TEST(DoublyLinkedListTest, RemoveDuplicateElementFromMultipleElementsList) {
+  DoublyLinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{2};
+  int constexpr ELEM_2{2};
+  int constexpr ELEM_3{3};
+
+  list.push_back(ELEM_0);
+  list.push_back(ELEM_1);
+  list.push_back(ELEM_2);
+  list.push_back(ELEM_3);
+  list.removeDuplicates();
+
+  EXPECT_FALSE(list.empty());
+
+  EXPECT_EQ(list.getHead()->data, ELEM_0);
+  EXPECT_EQ(list.getHead()->next->data, ELEM_1);
+  EXPECT_EQ(list.getTail()->data, ELEM_3);
+}
+
+// Test case for removing multiple duplicate elements from a list with multiple
+// elements
+TEST(DoublyLinkedListTest,
+     RemoveMultipleDuplicateElementsFromMultipleElementsList) {
+  DoublyLinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{1};
+  int constexpr ELEM_2{2};
+  int constexpr ELEM_3{2};
+  int constexpr ELEM_4{3};
+
+  list.push_back(ELEM_0);
+  list.push_back(ELEM_1);
+  list.push_back(ELEM_2);
+  list.push_back(ELEM_3);
+  list.push_back(ELEM_4);
+  list.removeDuplicates();
+
+  EXPECT_FALSE(list.empty());
+
+  EXPECT_EQ(list.getHead()->data, ELEM_0);
+  EXPECT_EQ(list.getHead()->next->data, ELEM_2);
+  EXPECT_EQ(list.getTail()->data, ELEM_4);
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

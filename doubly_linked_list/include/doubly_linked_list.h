@@ -19,6 +19,7 @@ public:
   void push_front(int value);
   void remove(int value);
   void removeByIndex(int index);
+  void removeDuplicates();
   void clear();
 
 private:
