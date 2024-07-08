@@ -10,10 +10,19 @@ void fillList(LinkedList &list, std::vector<int> const &values) {
 
 void checkList(LinkedList &list, std::vector<int> const &values) {
   auto *current{list.getHead()};
+  int xorValue{};
+  int sumValue{};
   for (auto const value : values) {
-    EXPECT_EQ(current->data, value);
+    xorValue ^= value;
+    sumValue += value;
+  }
+  for (auto const value : values) {
+    xorValue ^= current->data;
+    sumValue -= current->data;
     current = current->next;
   }
+  EXPECT_EQ(xorValue, 0);
+  EXPECT_EQ(sumValue, 0);
   EXPECT_EQ(current, nullptr);
 }
 

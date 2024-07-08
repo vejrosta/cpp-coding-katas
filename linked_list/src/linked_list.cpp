@@ -1,4 +1,5 @@
 #include "linked_list.h"
+#include <unordered_map>
 
 LinkedList::~LinkedList() { clear(); }
 
@@ -33,9 +34,9 @@ void LinkedList::remove(int value) {
   auto current{head};
   while (current->next != nullptr) {
     if (current->next->data == value) {
-      auto temp{current->next};
+      auto tmp{current->next};
       current->next = current->next->next;
-      delete temp;
+      delete tmp;
       return;
     }
     current = current->next;
@@ -79,22 +80,29 @@ void LinkedList::clear() {
 }
 
 void LinkedList::removeDuplicates() {
-  if (head == nullptr) {
-    return;
-  }
+  std::unordered_map<int, int> elementCounter;
 
   auto current{head};
   while (current != nullptr) {
-    auto runner{current};
-    while (runner->next != nullptr) {
-      if (runner->next->data == current->data) {
-        auto tmp{runner->next};
-        runner->next = runner->next->next;
-        delete tmp;
-      } else {
-        runner = runner->next;
-      }
-    }
+    ++elementCounter[current->data];
     current = current->next;
+  }
+
+  current = head;
+  Node *previous{nullptr};
+  while (current != nullptr) {
+    if (--elementCounter[current->data]) {
+      if (previous != nullptr) {
+        previous->next = current->next;
+      } else {
+        head = current->next;
+      }
+      Node *tmp{current};
+      current = current->next;
+      delete tmp;
+    } else {
+      previous = current;
+      current = current->next;
+    }
   }
 }
