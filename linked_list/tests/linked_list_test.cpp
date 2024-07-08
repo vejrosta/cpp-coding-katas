@@ -9,7 +9,7 @@ void fillList(LinkedList &list, std::vector<int> const &values) {
 }
 
 void checkList(LinkedList &list, std::vector<int> const &values) {
-  Elem *current{list.getHead()};
+  auto *current{list.getHead()};
   for (auto const value : values) {
     EXPECT_EQ(current->data, value);
     current = current->next;
@@ -105,6 +105,38 @@ TEST(LinkedListTest, RemoveMultipleElementsFromMultipleElementsList) {
 
   EXPECT_FALSE(list.empty());
   checkList(list, {ELEM_1});
+}
+
+// Test case for clearing an empty list
+TEST(LinkedListTest, ClearEmptyList) {
+  LinkedList list{};
+
+  list.clear();
+
+  EXPECT_TRUE(list.empty());
+}
+
+// Test case for clearing a list with one element
+TEST(LinkedListTest, ClearSingleElementList) {
+  LinkedList list{};
+
+  list.push_back(5);
+  list.clear();
+
+  EXPECT_TRUE(list.empty());
+}
+
+// Test case for clearing a list with multiple elements
+TEST(LinkedListTest, ClearMultipleElementsList) {
+  LinkedList list{};
+  int constexpr ELEM_0{1};
+  int constexpr ELEM_1{2};
+  int constexpr ELEM_2{3};
+
+  fillList(list, {ELEM_0, ELEM_1, ELEM_2});
+  list.clear();
+
+  EXPECT_TRUE(list.empty());
 }
 
 int main(int argc, char **argv) {

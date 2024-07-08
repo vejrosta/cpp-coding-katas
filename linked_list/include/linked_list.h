@@ -1,21 +1,22 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-struct Elem {
+struct Node {
   int data{};
-  Elem *next{nullptr};
+  Node *next{nullptr};
 };
 
 class LinkedList {
 public:
-  Elem *getHead() const;
+  Node *getHead() const;
 
   bool empty() const;
   void push_back(int value);
   void remove(int value);
+  void clear();
 
 private:
-  Elem *head{nullptr};
+  Node *head{nullptr};
 };
 
 #endif // LINKED_LIST_H

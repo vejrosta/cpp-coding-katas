@@ -1,18 +1,18 @@
 #include "linked_list.h"
 
-Elem *LinkedList::getHead() const { return head; }
+Node *LinkedList::getHead() const { return head; }
 
 bool LinkedList::empty() const { return head == nullptr; }
 
 void LinkedList::push_back(int value) {
   if (head == nullptr) {
-    head = new Elem{value};
+    head = new Node{value};
   } else {
     auto current{head};
     while (current->next != nullptr) {
       current = current->next;
     }
-    current->next = new Elem{value};
+    current->next = new Node{value};
   }
 }
 
@@ -37,5 +37,13 @@ void LinkedList::remove(int value) {
       return;
     }
     current = current->next;
+  }
+}
+
+void LinkedList::clear() {
+  while (head != nullptr) {
+    auto tmp{head};
+    head = head->next;
+    delete tmp;
   }
 }
