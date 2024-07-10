@@ -166,6 +166,25 @@ TEST(HeapTest, FindNonEmptyThere) {
   ASSERT_TRUE(heap.find(73));
 }
 
+// Test case for clearing the empty heap
+TEST(HeapTest, ClearEmpty) {
+  Heap heap{};
+  heap.clear();
+  ASSERT_TRUE(heap.empty());
+  ASSERT_EQ(heap.size(), 0);
+}
+
+// Test case for clearing the non-empty heap
+TEST(HeapTest, ClearNonEmpty) {
+  Heap heap{};
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(53);
+  heap.clear();
+  ASSERT_TRUE(heap.empty());
+  ASSERT_EQ(heap.size(), 0);
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

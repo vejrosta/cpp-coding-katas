@@ -69,3 +69,8 @@ bool Heap::find(int value) {
 }
 
 int Heap::top() { return heap_data[0]; }
+
+void Heap::clear() {
+  heap_data.clear();
+  heap_size = 0;
+}
