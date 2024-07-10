@@ -4,7 +4,13 @@
 #include <vector>
 
 class Heap {
+protected:
+  Heap() = default;
+  std::vector<int> heap_data{};
+
 public:
+  virtual ~Heap() = default;
+
   void insert(int value);
   void remove(int value);
   void clear();
@@ -15,11 +21,26 @@ public:
   void pop();
 
 private:
-  bool inOrder(int parent, int child);
+  virtual bool inOrder(int parent, int child) = 0;
   void heapify_down(int current);
   void heapify_up(int current);
-  std::vector<int> heap_data{};
   int heap_size{};
+};
+
+class MinHeap : public Heap {
+protected:
+  bool inOrder(int parent, int child) override {
+    // For MinHeap, parent should be less than or equal to child
+    return heap_data[parent] <= heap_data[child];
+  }
+};
+
+class MaxHeap : public Heap {
+protected:
+  bool inOrder(int parent, int child) override {
+    // For MaxHeap, parent should be greater than or equal to child
+    return heap_data[parent] >= heap_data[child];
+  }
 };
 
 #endif // HEAP_H

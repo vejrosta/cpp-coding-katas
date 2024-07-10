@@ -89,6 +89,6 @@ void Heap::heapify_up(int current) {
   }
 }
 
-bool Heap::inOrder(int parent, int child) {
-  return heap_data[parent] <= heap_data[child];
-}
+// bool Heap::inOrder(int parent, int child) {
+//   return heap_data[parent] <= heap_data[child];
+// }
