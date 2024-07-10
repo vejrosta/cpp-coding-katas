@@ -15,6 +15,7 @@ public:
   void pop();
 
 private:
+  bool inOrder(int parent, int child);
   void heapify_down(int current);
   void heapify_up(int current);
   std::vector<int> heap_data{};

@@ -59,17 +59,16 @@ void Heap::heapify_down(int current) {
       return;
     }
     if (right >= heap_size) {
-      if (heap_data[current] <= heap_data[left]) {
+      if (inOrder(current, left)) {
         return;
       }
       std::swap(heap_data[current], heap_data[left]);
       return;
     }
-    if (heap_data[current] <= heap_data[left] &&
-        heap_data[current] <= heap_data[right]) {
+    if ((inOrder(current, left)) && (inOrder(current, right))) {
       return;
     }
-    if (heap_data[left] < heap_data[right]) {
+    if (!inOrder(right, left)) {
       std::swap(heap_data[current], heap_data[left]);
       current = left;
     } else {
@@ -82,10 +81,14 @@ void Heap::heapify_down(int current) {
 void Heap::heapify_up(int current) {
   while (current != 0) {
     int parent{(current - 1) / 2};
-    if (heap_data[current] >= heap_data[parent]) {
+    if (inOrder(parent, current)) {
       return;
     }
     std::swap(heap_data[current], heap_data[parent]);
     current = parent;
   }
+}
+
+bool Heap::inOrder(int parent, int child) {
+  return heap_data[parent] <= heap_data[child];
 }
