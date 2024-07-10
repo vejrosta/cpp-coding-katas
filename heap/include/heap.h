@@ -15,7 +15,8 @@ public:
   void pop();
 
 private:
-  void heapify(int current);
+  void heapify_down(int current);
+  void heapify_up(int current);
   std::vector<int> heap_data{};
   int heap_size{};
 };

@@ -1,4 +1,5 @@
 #include "heap.h"
+#include <algorithm>
 
 bool Heap::empty() { return heap_size == 0; }
 
@@ -8,15 +9,7 @@ void Heap::insert(int value) {
   heap_data.push_back(value);
   ++heap_size;
 
-  int current{heap_size - 1};
-  while (current != 0) {
-    int parent{(current - 1) / 2};
-    if (heap_data[current] >= heap_data[parent]) {
-      return;
-    }
-    std::swap(heap_data[current], heap_data[parent]);
-    current = parent;
-  }
+  heapify_up(heap_size - 1);
 }
 
 void Heap::pop() {
@@ -31,17 +24,12 @@ void Heap::pop() {
   std::swap(heap_data[0], heap_data[heap_size - 1]);
   heap_data.pop_back();
   --heap_size;
-  int current{0};
-  heapify(current);
+  heapify_down(0);
 }
 
 bool Heap::find(int value) {
-  for (int i = 0; i < heap_size; ++i) {
-    if (heap_data[i] == value) {
-      return true;
-    }
-  }
-  return false;
+  return std::find(heap_data.begin(), heap_data.end(), value) !=
+         heap_data.end();
 }
 
 int Heap::top() { return heap_data[0]; }
@@ -57,13 +45,13 @@ void Heap::remove(int value) {
       std::swap(heap_data[i], heap_data[heap_size - 1]);
       heap_data.pop_back();
       --heap_size;
-      heapify(i);
+      heapify_down(i);
       return;
     }
   }
 }
 
-void Heap::heapify(int current) {
+void Heap::heapify_down(int current) {
   while (current < heap_size) {
     int left{2 * current + 1};
     int right{2 * current + 2};
@@ -88,5 +76,16 @@ void Heap::heapify(int current) {
       std::swap(heap_data[current], heap_data[right]);
       current = right;
     }
+  }
+}
+
+void Heap::heapify_up(int current) {
+  while (current != 0) {
+    int parent{(current - 1) / 2};
+    if (heap_data[current] >= heap_data[parent]) {
+      return;
+    }
+    std::swap(heap_data[current], heap_data[parent]);
+    current = parent;
   }
 }
