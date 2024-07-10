@@ -32,31 +32,7 @@ void Heap::pop() {
   heap_data.pop_back();
   --heap_size;
   int current{0};
-  while (current < heap_size) {
-    int left{2 * current + 1};
-    int right{2 * current + 2};
-    if (left >= heap_size) {
-      return;
-    }
-    if (right >= heap_size) {
-      if (heap_data[current] <= heap_data[left]) {
-        return;
-      }
-      std::swap(heap_data[current], heap_data[left]);
-      return;
-    }
-    if (heap_data[current] <= heap_data[left] &&
-        heap_data[current] <= heap_data[right]) {
-      return;
-    }
-    if (heap_data[left] < heap_data[right]) {
-      std::swap(heap_data[current], heap_data[left]);
-      current = left;
-    } else {
-      std::swap(heap_data[current], heap_data[right]);
-      current = right;
-    }
-  }
+  heapify(current);
 }
 
 bool Heap::find(int value) {
@@ -81,33 +57,36 @@ void Heap::remove(int value) {
       std::swap(heap_data[i], heap_data[heap_size - 1]);
       heap_data.pop_back();
       --heap_size;
-      int current{i};
-      while (current < heap_size) {
-        int left{2 * current + 1};
-        int right{2 * current + 2};
-        if (left >= heap_size) {
-          return;
-        }
-        if (right >= heap_size) {
-          if (heap_data[current] <= heap_data[left]) {
-            return;
-          }
-          std::swap(heap_data[current], heap_data[left]);
-          return;
-        }
-        if (heap_data[current] <= heap_data[left] &&
-            heap_data[current] <= heap_data[right]) {
-          return;
-        }
-        if (heap_data[left] < heap_data[right]) {
-          std::swap(heap_data[current], heap_data[left]);
-          current = left;
-        } else {
-          std::swap(heap_data[current], heap_data[right]);
-          current = right;
-        }
-      }
+      heapify(i);
       return;
+    }
+  }
+}
+
+void Heap::heapify(int current) {
+  while (current < heap_size) {
+    int left{2 * current + 1};
+    int right{2 * current + 2};
+    if (left >= heap_size) {
+      return;
+    }
+    if (right >= heap_size) {
+      if (heap_data[current] <= heap_data[left]) {
+        return;
+      }
+      std::swap(heap_data[current], heap_data[left]);
+      return;
+    }
+    if (heap_data[current] <= heap_data[left] &&
+        heap_data[current] <= heap_data[right]) {
+      return;
+    }
+    if (heap_data[left] < heap_data[right]) {
+      std::swap(heap_data[current], heap_data[left]);
+      current = left;
+    } else {
+      std::swap(heap_data[current], heap_data[right]);
+      current = right;
     }
   }
 }
