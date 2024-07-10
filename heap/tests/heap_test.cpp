@@ -185,6 +185,51 @@ TEST(HeapTest, ClearNonEmpty) {
   ASSERT_EQ(heap.size(), 0);
 }
 
+// Test case for removing an element from the empty heap
+TEST(HeapTest, RemoveEmpty) {
+  Heap heap{};
+  heap.remove(42);
+  ASSERT_TRUE(heap.empty());
+  ASSERT_EQ(heap.size(), 0);
+}
+
+// Test case for removing an element from non-empty heap which is not there
+TEST(HeapTest, RemoveNonEmpty) {
+  Heap heap{};
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(53);
+  heap.remove(42);
+  ASSERT_FALSE(heap.empty());
+  ASSERT_EQ(heap.size(), 3);
+}
+
+// Test case for removing an element from non-empty heap which is there
+TEST(HeapTest, RemoveNonEmptyThere) {
+  Heap heap{};
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(53);
+  heap.remove(73);
+  ASSERT_FALSE(heap.empty());
+  ASSERT_EQ(heap.size(), 2);
+  ASSERT_FALSE(heap.find(73));
+  ASSERT_EQ(heap.top(), 17);
+}
+
+// Test case for removing an element from non-empty heap which is there
+TEST(HeapTest, RemoveNonEmptyThereTop) {
+  Heap heap{};
+  heap.insert(17);
+  heap.insert(53);
+  heap.insert(73);
+  heap.remove(17);
+  ASSERT_FALSE(heap.empty());
+  ASSERT_EQ(heap.size(), 2);
+  ASSERT_FALSE(heap.find(17));
+  ASSERT_EQ(heap.top(), 53);
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
