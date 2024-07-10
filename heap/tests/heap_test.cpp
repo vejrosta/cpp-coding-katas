@@ -142,6 +142,30 @@ TEST(HeapTest, TopPopTenElements) {
   ASSERT_EQ(heap.top(), 99);
 }
 
+// Test case for finding an element in the empty heap
+TEST(HeapTest, FindEmpty) {
+  Heap heap{};
+  ASSERT_FALSE(heap.find(42));
+}
+
+// Test case for finding an element in non-empty heap which is not there
+TEST(HeapTest, FindNonEmpty) {
+  Heap heap{};
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(53);
+  ASSERT_FALSE(heap.find(42));
+}
+
+// Test case for finding an element in non-empty heap which is there
+TEST(HeapTest, FindNonEmptyThere) {
+  Heap heap{};
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(53);
+  ASSERT_TRUE(heap.find(73));
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

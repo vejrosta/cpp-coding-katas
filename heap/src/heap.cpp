@@ -59,4 +59,13 @@ void Heap::pop() {
   }
 }
 
+bool Heap::find(int value) {
+  for (int i = 0; i < heap_size; ++i) {
+    if (heap_data[i] == value) {
+      return true;
+    }
+  }
+  return false;
+}
+
 int Heap::top() { return heap_data[0]; }
