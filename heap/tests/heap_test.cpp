@@ -89,6 +89,59 @@ TEST(HeapTest, TopPopThreeElements) {
   ASSERT_EQ(heap.top(), 73);
 }
 
+// Test case for the heap has five elements and we check the top and then pop
+TEST(HeapTest, TopPopFiveElements) {
+  Heap heap{};
+  heap.insert(42);
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(23);
+  heap.insert(11);
+  ASSERT_EQ(heap.top(), 11);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 17);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 23);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 42);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 73);
+}
+
+// Test case for the heap has 10 elements and we check the top and then pop
+TEST(HeapTest, TopPopTenElements) {
+  Heap heap{};
+  heap.insert(42);
+  heap.insert(17);
+  heap.insert(73);
+  heap.insert(23);
+  heap.insert(11);
+  heap.insert(99);
+  heap.insert(37);
+  heap.insert(31);
+  heap.insert(7);
+  heap.insert(53);
+  ASSERT_EQ(heap.top(), 7);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 11);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 17);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 23);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 31);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 37);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 42);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 53);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 73);
+  heap.pop();
+  ASSERT_EQ(heap.top(), 99);
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

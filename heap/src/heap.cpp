@@ -28,31 +28,34 @@ void Heap::pop() {
     heap_size = 0;
     return;
   }
-  if (heap_size == 2) {
-    std::swap(heap_data[0], heap_data[1]);
-    heap_data.pop_back();
-    heap_size = 1;
-    return;
-  }
-  if (heap_size == 3) {
-    std::swap(heap_data[0], heap_data[2]);
-    heap_data.pop_back();
-    --heap_size;
-    if (heap_data[0] < heap_data[1]) {
-      return;
-    }
-    std::swap(heap_data[0], heap_data[1]);
-    return;
-  }
   std::swap(heap_data[0], heap_data[heap_size - 1]);
   heap_data.pop_back();
   --heap_size;
-  if (heap_data[0] < heap_data[1] && heap_data[0] < heap_data[2]) {
-    return;
-  } else if (heap_data[1] < heap_data[2]) {
-    std::swap(heap_data[0], heap_data[1]);
-  } else {
-    std::swap(heap_data[0], heap_data[2]);
+  int current{0};
+  while (current < heap_size) {
+    int left{2 * current + 1};
+    int right{2 * current + 2};
+    if (left >= heap_size) {
+      return;
+    }
+    if (right >= heap_size) {
+      if (heap_data[current] <= heap_data[left]) {
+        return;
+      }
+      std::swap(heap_data[current], heap_data[left]);
+      return;
+    }
+    if (heap_data[current] <= heap_data[left] &&
+        heap_data[current] <= heap_data[right]) {
+      return;
+    }
+    if (heap_data[left] < heap_data[right]) {
+      std::swap(heap_data[current], heap_data[left]);
+      current = left;
+    } else {
+      std::swap(heap_data[current], heap_data[right]);
+      current = right;
+    }
   }
 }
 
