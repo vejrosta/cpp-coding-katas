@@ -1,6 +1,21 @@
 #include "heap.h"
 #include <gtest/gtest.h>
 
+Heap heapify(std::vector<int> const &heap_data) {
+  Heap heap{};
+  for (auto const &value : heap_data) {
+    heap.insert(value);
+  }
+  return heap;
+}
+
+void topAndPopThenCheck(Heap &heap, std::vector<int> const &top) {
+  for (auto const &value : top) {
+    ASSERT_EQ(heap.top(), value);
+    heap.pop();
+  }
+}
+
 // Test case for the heap is empty
 TEST(HeapTest, Empty) {
   Heap heap{};
@@ -17,16 +32,14 @@ TEST(HeapTest, PopEmpty) {
 
 // Test case for the heap has one element
 TEST(HeapTest, OneElement) {
-  Heap heap{};
-  heap.insert(42);
+  auto heap{heapify({42})};
   ASSERT_FALSE(heap.empty());
   ASSERT_EQ(heap.size(), 1);
 }
 
 // Test case for the heap has one element which is popped
 TEST(HeapTest, PopOneElement) {
-  Heap heap{};
-  heap.insert(42);
+  auto heap{heapify({42})};
   heap.pop();
   ASSERT_TRUE(heap.empty());
   ASSERT_EQ(heap.size(), 0);
@@ -41,18 +54,14 @@ TEST(HeapTest, TopOneElement) {
 
 // Test case for the heap has two elements
 TEST(HeapTest, TwoElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
+  auto heap{heapify({42, 17})};
   ASSERT_FALSE(heap.empty());
   ASSERT_EQ(heap.size(), 2);
 }
 
 // Test case for the heap has two elements and one popped
 TEST(HeapTest, PopTwoElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
+  auto heap{heapify({42, 17})};
   heap.pop();
   ASSERT_FALSE(heap.empty());
   ASSERT_EQ(heap.size(), 1);
@@ -60,17 +69,13 @@ TEST(HeapTest, PopTwoElements) {
 
 // Test case for the heap has two elements and we check the top
 TEST(HeapTest, TopTwoElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
+  auto heap{heapify({42, 17})};
   ASSERT_EQ(heap.top(), 17);
 }
 
 // Test case for the heap has two elements and we check the top and then pop
 TEST(HeapTest, TopPopTwoElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
+  auto heap{heapify({42, 17})};
   ASSERT_EQ(heap.top(), 17);
   heap.pop();
   ASSERT_EQ(heap.top(), 42);
@@ -78,10 +83,7 @@ TEST(HeapTest, TopPopTwoElements) {
 
 // Test case for the heap has three elements and we check the top and then pop
 TEST(HeapTest, TopPopThreeElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
-  heap.insert(73);
+  auto heap{heapify({42, 17, 73})};
   ASSERT_EQ(heap.top(), 17);
   heap.pop();
   ASSERT_EQ(heap.top(), 42);
@@ -91,55 +93,14 @@ TEST(HeapTest, TopPopThreeElements) {
 
 // Test case for the heap has five elements and we check the top and then pop
 TEST(HeapTest, TopPopFiveElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(23);
-  heap.insert(11);
-  ASSERT_EQ(heap.top(), 11);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 17);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 23);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 42);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 73);
+  auto heap{heapify({42, 17, 73, 23, 11})};
+  topAndPopThenCheck(heap, {11, 17, 23, 42, 73});
 }
 
 // Test case for the heap has 10 elements and we check the top and then pop
 TEST(HeapTest, TopPopTenElements) {
-  Heap heap{};
-  heap.insert(42);
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(23);
-  heap.insert(11);
-  heap.insert(99);
-  heap.insert(37);
-  heap.insert(31);
-  heap.insert(7);
-  heap.insert(53);
-  ASSERT_EQ(heap.top(), 7);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 11);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 17);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 23);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 31);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 37);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 42);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 53);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 73);
-  heap.pop();
-  ASSERT_EQ(heap.top(), 99);
+  auto heap{heapify({42, 17, 73, 23, 11, 99, 37, 31, 7, 53})};
+  topAndPopThenCheck(heap, {7, 11, 17, 23, 31, 37, 42, 53, 73, 99});
 }
 
 // Test case for finding an element in the empty heap
@@ -150,19 +111,13 @@ TEST(HeapTest, FindEmpty) {
 
 // Test case for finding an element in non-empty heap which is not there
 TEST(HeapTest, FindNonEmpty) {
-  Heap heap{};
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(53);
+  auto heap{heapify({17, 73, 53})};
   ASSERT_FALSE(heap.find(42));
 }
 
 // Test case for finding an element in non-empty heap which is there
 TEST(HeapTest, FindNonEmptyThere) {
-  Heap heap{};
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(53);
+  auto heap{heapify({17, 73, 53})};
   ASSERT_TRUE(heap.find(73));
 }
 
@@ -176,10 +131,7 @@ TEST(HeapTest, ClearEmpty) {
 
 // Test case for clearing the non-empty heap
 TEST(HeapTest, ClearNonEmpty) {
-  Heap heap{};
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(53);
+  auto heap{heapify({17, 73, 53})};
   heap.clear();
   ASSERT_TRUE(heap.empty());
   ASSERT_EQ(heap.size(), 0);
@@ -195,10 +147,7 @@ TEST(HeapTest, RemoveEmpty) {
 
 // Test case for removing an element from non-empty heap which is not there
 TEST(HeapTest, RemoveNonEmpty) {
-  Heap heap{};
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(53);
+  auto heap{heapify({17, 73, 53})};
   heap.remove(42);
   ASSERT_FALSE(heap.empty());
   ASSERT_EQ(heap.size(), 3);
@@ -206,10 +155,7 @@ TEST(HeapTest, RemoveNonEmpty) {
 
 // Test case for removing an element from non-empty heap which is there
 TEST(HeapTest, RemoveNonEmptyThere) {
-  Heap heap{};
-  heap.insert(17);
-  heap.insert(73);
-  heap.insert(53);
+  auto heap{heapify({17, 73, 53})};
   heap.remove(73);
   ASSERT_FALSE(heap.empty());
   ASSERT_EQ(heap.size(), 2);
@@ -219,10 +165,7 @@ TEST(HeapTest, RemoveNonEmptyThere) {
 
 // Test case for removing an element from non-empty heap which is there
 TEST(HeapTest, RemoveNonEmptyThereTop) {
-  Heap heap{};
-  heap.insert(17);
-  heap.insert(53);
-  heap.insert(73);
+  auto heap{heapify({17, 53, 73})};
   heap.remove(17);
   ASSERT_FALSE(heap.empty());
   ASSERT_EQ(heap.size(), 2);
